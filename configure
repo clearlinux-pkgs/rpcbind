@@ -1,1 +1,1 @@
---enable-warmstarts
+--enable-warmstarts --with-nss-modules="files altfiles"
