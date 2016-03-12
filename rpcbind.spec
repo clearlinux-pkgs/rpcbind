@@ -4,7 +4,7 @@
 #
 Name     : rpcbind
 Version  : 0.2.3
-Release  : 1
+Release  : 2
 URL      : http://downloads.sourceforge.net/project/rpcbind/rpcbind/0.2.3/rpcbind-0.2.3.tar.bz2
 Source0  : http://downloads.sourceforge.net/project/rpcbind/rpcbind/0.2.3/rpcbind-0.2.3.tar.bz2
 Summary  : No detailed summary available
@@ -55,7 +55,7 @@ doc components for the rpcbind package.
 %patch3 -p1
 
 %build
-%configure --disable-static --enable-warmstarts
+%configure --disable-static --enable-warmstarts --with-nss-modules="files altfiles"
 make V=1  %{?_smp_mflags}
 
 %check
