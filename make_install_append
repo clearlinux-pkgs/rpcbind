@@ -1,4 +1,3 @@
 mkdir -p %{buildroot}/usr/lib/systemd/system/sockets.target.wants
 install -m644 rpcbind.service %{buildroot}/usr/lib/systemd/system/
 install -m644 rpcbind.socket %{buildroot}/usr/lib/systemd/system/
-ln -s /usr/lib/systemd/system/rpcbind.socket %{buildroot}/usr/lib/systemd/system/sockets.target.wants/rpcbind.socket 

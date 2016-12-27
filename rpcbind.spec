@@ -4,7 +4,7 @@
 #
 Name     : rpcbind
 Version  : 0.2.3
-Release  : 4
+Release  : 6
 URL      : http://downloads.sourceforge.net/project/rpcbind/rpcbind/0.2.3/rpcbind-0.2.3.tar.bz2
 Source0  : http://downloads.sourceforge.net/project/rpcbind/rpcbind/0.2.3/rpcbind-0.2.3.tar.bz2
 Summary  : No detailed summary available
@@ -55,10 +55,12 @@ doc components for the rpcbind package.
 %patch3 -p1
 
 %build
+export LANG=C
 %configure --disable-static --enable-warmstarts --with-nss-modules="files altfiles"
 make V=1  %{?_smp_mflags}
 
 %check
+export LANG=C
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost
@@ -71,7 +73,6 @@ rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/lib/systemd/system/sockets.target.wants
 install -m644 rpcbind.service %{buildroot}/usr/lib/systemd/system/
 install -m644 rpcbind.socket %{buildroot}/usr/lib/systemd/system/
-ln -s /usr/lib/systemd/system/rpcbind.socket %{buildroot}/usr/lib/systemd/system/sockets.target.wants/rpcbind.socket
 ## make_install_append end
 
 %files
@@ -86,7 +87,6 @@ ln -s /usr/lib/systemd/system/rpcbind.socket %{buildroot}/usr/lib/systemd/system
 %defattr(-,root,root,-)
 /usr/lib/systemd/system/rpcbind.service
 /usr/lib/systemd/system/rpcbind.socket
-/usr/lib/systemd/system/sockets.target.wants/rpcbind.socket
 
 %files doc
 %defattr(-,root,root,-)

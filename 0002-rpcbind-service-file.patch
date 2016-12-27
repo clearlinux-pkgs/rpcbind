@@ -1,6 +1,6 @@
 --- rpcbind-0.2.3/rpcbind.service.orig	2016-03-10 05:56:37.675336771 +0000
 +++ rpcbind-0.2.3/rpcbind.service	2016-03-10 05:58:10.098331222 +0000
-@@ -0,0 +1,10 @@
+@@ -0,0 +1,11 @@
 +[Unit]
 +Description=RPC bind service
 +Requires=rpcbind.socket
@@ -11,3 +11,4 @@
 +
 +[Install]
 +Also=rpcbind.socket
++WantedBy=multi-user.target
