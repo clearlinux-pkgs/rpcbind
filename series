@@ -1,3 +1,4 @@
 0002-rpcbind-service-file.patch
 0003-rpcbind-socket-file.patch
 cve-2017-8779.patch
+cve-2017-8804.patch

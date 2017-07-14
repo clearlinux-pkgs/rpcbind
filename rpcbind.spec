@@ -4,7 +4,7 @@
 #
 Name     : rpcbind
 Version  : 0.2.4
-Release  : 11
+Release  : 12
 URL      : http://downloads.sourceforge.net/project/rpcbind/rpcbind/0.2.4/rpcbind-0.2.4.tar.bz2
 Source0  : http://downloads.sourceforge.net/project/rpcbind/rpcbind/0.2.4/rpcbind-0.2.4.tar.bz2
 Summary  : No detailed summary available
@@ -18,6 +18,7 @@ BuildRequires : pkgconfig(libtirpc)
 Patch1: 0002-rpcbind-service-file.patch
 Patch2: 0003-rpcbind-socket-file.patch
 Patch3: cve-2017-8779.patch
+Patch4: cve-2017-8804.patch
 
 %description
 This release was a native source release from Sun.
@@ -53,13 +54,14 @@ doc components for the rpcbind package.
 %patch1 -p1
 %patch2 -p1
 %patch3 -p1
+%patch4 -p1
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1494002579
+export SOURCE_DATE_EPOCH=1500047523
 export CFLAGS="$CFLAGS -fstack-protector-strong "
 export FCFLAGS="$CFLAGS -fstack-protector-strong "
 export FFLAGS="$CFLAGS -fstack-protector-strong "
@@ -75,7 +77,7 @@ export no_proxy=localhost,127.0.0.1,0.0.0.0
 make VERBOSE=1 V=1 %{?_smp_mflags} check
 
 %install
-export SOURCE_DATE_EPOCH=1494002579
+export SOURCE_DATE_EPOCH=1500047523
 rm -rf %{buildroot}
 %make_install
 ## make_install_append content
