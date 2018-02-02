@@ -4,7 +4,7 @@
 #
 Name     : rpcbind
 Version  : 0.2.4
-Release  : 12
+Release  : 13
 URL      : http://downloads.sourceforge.net/project/rpcbind/rpcbind/0.2.4/rpcbind-0.2.4.tar.bz2
 Source0  : http://downloads.sourceforge.net/project/rpcbind/rpcbind/0.2.4/rpcbind-0.2.4.tar.bz2
 Summary  : No detailed summary available
