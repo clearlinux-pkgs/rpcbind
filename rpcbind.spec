@@ -4,7 +4,7 @@
 #
 Name     : rpcbind
 Version  : 1.2.5
-Release  : 15
+Release  : 16
 URL      : https://sourceforge.net/projects/rpcbind/files/rpcbind/1.2.5/rpcbind-1.2.5.tar.bz2
 Source0  : https://sourceforge.net/projects/rpcbind/files/rpcbind/1.2.5/rpcbind-1.2.5.tar.bz2
 Summary  : No detailed summary available
