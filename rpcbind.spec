@@ -4,16 +4,16 @@
 #
 Name     : rpcbind
 Version  : 1.2.5
-Release  : 16
+Release  : 17
 URL      : https://sourceforge.net/projects/rpcbind/files/rpcbind/1.2.5/rpcbind-1.2.5.tar.bz2
 Source0  : https://sourceforge.net/projects/rpcbind/files/rpcbind/1.2.5/rpcbind-1.2.5.tar.bz2
 Summary  : No detailed summary available
 Group    : Development/Tools
 License  : BSD-3-Clause
-Requires: rpcbind-bin
-Requires: rpcbind-config
-Requires: rpcbind-license
-Requires: rpcbind-man
+Requires: rpcbind-bin = %{version}-%{release}
+Requires: rpcbind-license = %{version}-%{release}
+Requires: rpcbind-man = %{version}-%{release}
+Requires: rpcbind-services = %{version}-%{release}
 BuildRequires : pkgconfig(libsystemd)
 BuildRequires : pkgconfig(libtirpc)
 Patch1: 0002-rpcbind-service-file.patch
@@ -26,20 +26,11 @@ It has been ported from FreeBSD 5.2.1 to GNU/Linux in 2004.
 %package bin
 Summary: bin components for the rpcbind package.
 Group: Binaries
-Requires: rpcbind-config
-Requires: rpcbind-license
-Requires: rpcbind-man
+Requires: rpcbind-license = %{version}-%{release}
+Requires: rpcbind-services = %{version}-%{release}
 
 %description bin
 bin components for the rpcbind package.
-
-
-%package config
-Summary: config components for the rpcbind package.
-Group: Default
-
-%description config
-config components for the rpcbind package.
 
 
 %package license
@@ -58,8 +49,17 @@ Group: Default
 man components for the rpcbind package.
 
 
+%package services
+Summary: services components for the rpcbind package.
+Group: Systemd services
+
+%description services
+services components for the rpcbind package.
+
+
 %prep
 %setup -q -n rpcbind-1.2.5
+cd %{_builddir}/rpcbind-1.2.5
 %patch1 -p1
 %patch2 -p1
 
@@ -67,27 +67,31 @@ man components for the rpcbind package.
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
-export LANG=C
-export SOURCE_DATE_EPOCH=1535841947
-export CFLAGS="$CFLAGS -fstack-protector-strong -mzero-caller-saved-regs=used "
-export FCFLAGS="$CFLAGS -fstack-protector-strong -mzero-caller-saved-regs=used "
-export FFLAGS="$CFLAGS -fstack-protector-strong -mzero-caller-saved-regs=used "
-export CXXFLAGS="$CXXFLAGS -fstack-protector-strong -mzero-caller-saved-regs=used "
+export LANG=C.UTF-8
+export SOURCE_DATE_EPOCH=1604354701
+export GCC_IGNORE_WERROR=1
+export AR=gcc-ar
+export RANLIB=gcc-ranlib
+export NM=gcc-nm
+export CFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=4 -fstack-protector-strong -mzero-caller-saved-regs=used "
+export FCFLAGS="$FFLAGS -O3 -ffat-lto-objects -flto=4 -fstack-protector-strong -mzero-caller-saved-regs=used "
+export FFLAGS="$FFLAGS -O3 -ffat-lto-objects -flto=4 -fstack-protector-strong -mzero-caller-saved-regs=used "
+export CXXFLAGS="$CXXFLAGS -O3 -ffat-lto-objects -flto=4 -fstack-protector-strong -mzero-caller-saved-regs=used "
 %configure --disable-static --enable-warmstarts --with-nss-modules="files altfiles"
 make  %{?_smp_mflags}
 
 %check
-export LANG=C
+export LANG=C.UTF-8
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
-make VERBOSE=1 V=1 %{?_smp_mflags} check
+make %{?_smp_mflags} check
 
 %install
-export SOURCE_DATE_EPOCH=1535841947
+export SOURCE_DATE_EPOCH=1604354701
 rm -rf %{buildroot}
-mkdir -p %{buildroot}/usr/share/doc/rpcbind
-cp COPYING %{buildroot}/usr/share/doc/rpcbind/COPYING
+mkdir -p %{buildroot}/usr/share/package-licenses/rpcbind
+cp %{_builddir}/rpcbind-1.2.5/COPYING %{buildroot}/usr/share/package-licenses/rpcbind/b104b8d9872e8a1270808da08aa5af553b080ce1
 %make_install
 ## install_append content
 mkdir -p %{buildroot}/usr/lib/systemd/system/sockets.target.wants
@@ -103,16 +107,16 @@ install -m644 rpcbind.socket %{buildroot}/usr/lib/systemd/system/
 /usr/bin/rpcbind
 /usr/bin/rpcinfo
 
-%files config
+%files license
+%defattr(0644,root,root,0755)
+/usr/share/package-licenses/rpcbind/b104b8d9872e8a1270808da08aa5af553b080ce1
+
+%files man
+%defattr(0644,root,root,0755)
+/usr/share/man/man8/rpcbind.8
+/usr/share/man/man8/rpcinfo.8
+
+%files services
 %defattr(-,root,root,-)
 /usr/lib/systemd/system/rpcbind.service
 /usr/lib/systemd/system/rpcbind.socket
-
-%files license
-%defattr(-,root,root,-)
-/usr/share/doc/rpcbind/COPYING
-
-%files man
-%defattr(-,root,root,-)
-/usr/share/man/man8/rpcbind.8
-/usr/share/man/man8/rpcinfo.8
