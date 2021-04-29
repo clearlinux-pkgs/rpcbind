@@ -4,7 +4,7 @@
 #
 Name     : rpcbind
 Version  : 1.2.5
-Release  : 18
+Release  : 19
 URL      : https://sourceforge.net/projects/rpcbind/files/rpcbind/1.2.5/rpcbind-1.2.5.tar.bz2
 Source0  : https://sourceforge.net/projects/rpcbind/files/rpcbind/1.2.5/rpcbind-1.2.5.tar.bz2
 Summary  : No detailed summary available
@@ -70,10 +70,10 @@ export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
 export SOURCE_DATE_EPOCH=1605051636
 export GCC_IGNORE_WERROR=1
-export CFLAGS="$CFLAGS -fno-lto -fstack-protector-strong -mzero-caller-saved-regs=used "
-export FCFLAGS="$FFLAGS -fno-lto -fstack-protector-strong -mzero-caller-saved-regs=used "
-export FFLAGS="$FFLAGS -fno-lto -fstack-protector-strong -mzero-caller-saved-regs=used "
-export CXXFLAGS="$CXXFLAGS -fno-lto -fstack-protector-strong -mzero-caller-saved-regs=used "
+export CFLAGS="$CFLAGS -fno-lto -fstack-protector-strong -fzero-call-used-regs=used "
+export FCFLAGS="$FFLAGS -fno-lto -fstack-protector-strong -fzero-call-used-regs=used "
+export FFLAGS="$FFLAGS -fno-lto -fstack-protector-strong -fzero-call-used-regs=used "
+export CXXFLAGS="$CXXFLAGS -fno-lto -fstack-protector-strong -fzero-call-used-regs=used "
 %configure --disable-static --enable-warmstarts --with-nss-modules="files altfiles"
 make  %{?_smp_mflags}
 
