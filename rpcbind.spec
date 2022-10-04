@@ -4,7 +4,7 @@
 #
 Name     : rpcbind
 Version  : 1.2.6
-Release  : 20
+Release  : 21
 URL      : https://sourceforge.net/projects/rpcbind/files/rpcbind/1.2.6/rpcbind-1.2.6.tar.bz2
 Source0  : https://sourceforge.net/projects/rpcbind/files/rpcbind/1.2.6/rpcbind-1.2.6.tar.bz2
 Summary  : No detailed summary available
@@ -68,12 +68,12 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1620755753
+export SOURCE_DATE_EPOCH=1664911703
 export GCC_IGNORE_WERROR=1
-export CFLAGS="$CFLAGS -fno-lto -fstack-protector-strong -fzero-call-used-regs=used "
-export FCFLAGS="$FFLAGS -fno-lto -fstack-protector-strong -fzero-call-used-regs=used "
-export FFLAGS="$FFLAGS -fno-lto -fstack-protector-strong -fzero-call-used-regs=used "
-export CXXFLAGS="$CXXFLAGS -fno-lto -fstack-protector-strong -fzero-call-used-regs=used "
+export CFLAGS="$CFLAGS -fno-lto "
+export FCFLAGS="$FFLAGS -fno-lto "
+export FFLAGS="$FFLAGS -fno-lto "
+export CXXFLAGS="$CXXFLAGS -fno-lto "
 %configure --disable-static --enable-warmstarts \
 --with-nss-modules="files altfiles"
 make  %{?_smp_mflags}
@@ -86,10 +86,10 @@ export no_proxy=localhost,127.0.0.1,0.0.0.0
 make %{?_smp_mflags} check
 
 %install
-export SOURCE_DATE_EPOCH=1620755753
+export SOURCE_DATE_EPOCH=1664911703
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/rpcbind
-cp %{_builddir}/rpcbind-1.2.6/COPYING %{buildroot}/usr/share/package-licenses/rpcbind/b104b8d9872e8a1270808da08aa5af553b080ce1
+cp %{_builddir}/rpcbind-%{version}/COPYING %{buildroot}/usr/share/package-licenses/rpcbind/b104b8d9872e8a1270808da08aa5af553b080ce1 || :
 %make_install
 ## install_append content
 mkdir -p %{buildroot}/usr/lib/systemd/system/sockets.target.wants
